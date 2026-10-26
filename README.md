@@ -1,14 +1,41 @@
 # Research Map
 
-A local research workspace with folder graphs, file and figure previews, and node-bound Codex conversations.
+### Your research folders, figures, code and AI conversations—in one map.
 
-This source copy contains only application code and a fictional **Orchard Study** demo. It includes no research inventories, saved chats, account configuration, or original research files.
+Research work often ends up spread across folders: a script here, a figure there, and the conversation that explains it somewhere else. Research Map gives you a visual way to navigate that work while keeping your files in place.
+
+![Research Map showing the fictional Orchard Study project as an interactive folder graph](docs/images/demo-graph.jpg)
+
+**Explore a project → inspect an analysis → open its code or figures → return to its conversation.**
+
+[See the walkthrough](docs/SHOWCASE.md) · [Try the fictional demo](#run-locally) · [Read the analysis workflow](RESEARCH_WORKFLOW.md)
+
+## What is it useful for?
+
+| When you want to… | Research Map helps you… |
+| --- | --- |
+| Understand a growing research project | Explore the folder hierarchy as a movable graph or folder navigator. |
+| Find the code and data behind a result | Inspect an analysis node's resources and recorded source links. |
+| Compare saved figures | Open image previews and step through the figures within an inspection. |
+| Read a script or report without leaving the project | Preview Python, JSON, Markdown, CSV and other text files over the graph. |
+| Remember which AI conversation did what | Bind Codex conversations to project or analysis nodes and revisit them from those nodes. |
+| Keep new AI-generated analyses organized | Use the managed workflow to review placement and create packages with code, data, figures and metadata. |
+
+### From a node to the actual figure
+
+Right-click an analysis, choose **Inspect**, then open **Figures**. The preview stays inside the workspace. The same inspection gives access to code, data and metadata.
+
+![A real figure preview from the fictional growth-model demo](docs/images/demo-figure.jpg)
+
+The screenshots use **Orchard Study**, a completely fictional project bundled with this repository. There are no real research files, private conversations or account configuration in the demo. Graph browsing and file previews work without Codex; AI conversations require your own installed and signed-in Codex CLI.
 
 ## Run locally
 
 Requirements: Python 3.10+, Node.js/npm to install the terminal frontend. macOS supports the native desktop wrapper. The browser workspace runs through a local Python server.
 
 ```sh
+git clone https://github.com/JUDEKEPA/research-map.git
+cd research-map
 npm ci
 python3 launcher.py --port 8767
 ```
