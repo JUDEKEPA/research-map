@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "node_id": "node-11111111111111111111111111111111",
+  "role": "analysis",
+  "description": "Fictional baseline simulation with code, data and a figure.",
+  "synthetic": true
+}

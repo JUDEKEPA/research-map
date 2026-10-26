@@ -1,0 +1,12 @@
+{
+  "description": "Fictional baseline growth simulation.",
+  "method": "Logistic growth",
+  "parameters": {
+    "rate": 0.12,
+    "capacity_cm": 30
+  },
+  "source_scripts": [
+    "code/model.py"
+  ],
+  "source": "data/growth.csv"
+}

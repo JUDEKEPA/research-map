@@ -1,0 +1,16 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const source=fs.readFileSync(__dirname+'/app.js','utf8');
+const fn=source.slice(source.indexOf('function layoutPreviewWindow(){'),source.indexOf('function openPreviewWindow(){'));
+const panel={open:true,style:{}};
+const graph={getBoundingClientRect:()=>({left:0,right:1280,top:60,bottom:820})};
+const nav={hidden:false,getBoundingClientRect:()=>({right:320})};
+const context={innerWidth:1280,innerHeight:820,$:id=>({'#preview-dialog':panel,'#graph-panel':graph,'#folder-window':nav})[id]};
+vm.createContext(context);vm.runInContext(fn+';layoutPreviewWindow();',context);
+assert.equal(panel.style.height,'736px','WebKit needs a definite dialog height to lay out flex content');
+assert.equal(panel.style.maxHeight,panel.style.height);
+assert.equal(panel.style.left,'332px','File viewer leaves folder navigation accessible');
+panel.open=false;panel.style={};vm.runInContext('layoutPreviewWindow()',context);assert.deepEqual(panel.style,{});
+console.log('Preview layout: defined content height, viewport bounds and accessible navigator passed.');

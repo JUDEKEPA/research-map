@@ -1,0 +1,7 @@
+{
+  "description": "Compare the two fictional growth variants.",
+  "inputs": [
+    "../baseline/data/growth.csv",
+    "../faster-growth/data/growth.csv"
+  ]
+}

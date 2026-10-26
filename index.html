@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Research Map</title><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/vendor/xterm.css"></head>
+<body class="graph-view">
+<div class="workspace">
+
+<main>
+
+<div class="navigation-strip"><div class="workspace-toolbar"><div class="segmented" role="group" aria-label="Workspace view"><button data-view="graph" class="selected" aria-pressed="true">⌘ Graph</button><button data-view="files" aria-pressed="false">☷ Folders</button></div><label class="search"><span>⌕</span><input id="search" placeholder="Search folders…" aria-label="Search all files and folders"><kbd>/</kbd></label><select id="filetype" aria-label="Filter by file type"><option value="">All types</option><option value="folder">Folders</option><option value=".png">PNG</option><option value=".pdf">PDF</option><option value=".csv">CSV</option><option value=".json">JSON</option><option value=".md">Notes</option></select><label class="recursive-label"><input id="recursive" type="checkbox"> Include subfolders</label><button id="clear-filters" title="Clear search and filters">Clear</button></div>
+<div class="scope-bar"><button id="up" aria-label="Go to parent folder">↑</button><div id="breadcrumbs" aria-label="Current folder path"></div></div>
+</div>
+<div class="work-area">
+<section class="browser-pane" aria-label="Research browser">
+<div id="active-context"></div><div id="project-context"></div><div id="graph-panel"><div class="graph-legend"><span class="legend-folder"></span> Folder <span class="legend-analysis"></span> Analysis </div><button id="research-manager-launch" title="Conversations and recovery">Manager</button><button id="graph-terminal-launch" disabled title="Select an analysis to open its conversation">›_ Codex CLI</button><p id="graph-notice" role="status" hidden></p><svg id="graph" aria-label="Analysis relationship graph"><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10" fill="#becfc6"/></marker></defs><g id="viewport"></g></svg></div>
+</section>
+
+</div>
+</main></div>
+<svg id="inspect-connector" aria-hidden="true" hidden><path/><circle r="3"/></svg>
+<aside id="inspect-window" class="inspector" role="dialog" aria-modal="false" aria-label="Inspect node" hidden><header id="inspect-titlebar"><span>Inspect</span><button id="inspect-close" aria-label="Close inspector" title="Close">×</button></header><div id="node-heading"></div><div class="inspector-tabs"><button data-tab="overview" class="selected">Overview</button><button data-tab="files">Resources</button><button data-tab="json">JSON</button><button data-tab="connections">Connections</button></div><div id="node-detail"></div>
+
+<section class="conversation legacy-chat" hidden><div class="conversation-heading"><h2>✧ Conversation</h2><button id="focus-chat" aria-label="Expand conversation" aria-pressed="false">Expand ↗</button></div><div id="context-label"></div><div id="messages" aria-live="polite"></div><div id="suggestions"><button data-prompt="Explain this analysis, its purpose, its resources and its relationships. Distinguish recorded facts from inferred links.">Explain this analysis ↗</button><button data-prompt="What evidence is available for reproducing this result? Distinguish known source code from missing provenance.">Trace this result ↗</button></div><form id="chat-form"><textarea id="chat-input" rows="2" maxlength="12000" aria-label="Message about selected item" placeholder="Ask about this item or branch…"></textarea><div class="composer-bottom"><select id="engine" aria-label="Conversation engine"><option value="guide">Local guide · no AI</option><option value="codex">Codex CLI</option></select><button id="send" class="send-button" aria-label="Send message">↑</button></div></form><p id="engine-note" class="engine-note"></p></section><button id="inspect-resize" aria-label="Resize inspector" title="Drag to resize · arrow keys to adjust">◢</button></aside>
+<section id="folder-window" role="dialog" aria-modal="false" aria-labelledby="folder-window-title" hidden>
+ <header id="folder-titlebar"><div class="folder-window-title"><h2 id="folder-window-title">Folders</h2><span id="folder-window-context"></span></div><div class="folder-window-controls"><button id="folder-minimize" aria-label="Minimize folders" title="Minimize">−</button><button id="folder-maximize" aria-label="Maximize folders" aria-pressed="false" title="Maximize">□</button><button id="folder-close" aria-label="Close folders" title="Close">×</button></div></header>
+ <div class="folder-window-body"><aside class="sidebar">
+
+<div class="sidebar-heading">FOLDERS</div>
+<button id="root" class="family active">⌘ <span>Project folders</span></button>
+<nav id="tree" aria-label="Analysis records and inventory"></nav>
+<details class="saved-section"><summary>Notes & conversations</summary><div id="saved-list"></div></details>
+<div class="sidebar-foot"><span class="green-dot"></span><span>Original files stay in place<small id="source-status">Checking source…</small></span><button id="about" aria-label="About this application">ⓘ</button></div>
+</aside><section class="folder-files" aria-label="Folder contents"><div id="results"></div><div id="empty-results" hidden>No matching items. Reset filters or return to the root folder.</div><div class="result-footer"><div><button id="prev" aria-label="Previous page">←</button><span id="page-label"></span><button id="next" aria-label="Next page">→</button></div></div></section></div>
+ <button id="folder-resize" aria-label="Resize folders" title="Drag to resize · arrow keys to adjust">◢</button>
+</section>
+<button id="folder-dock" hidden title="Restore folders">☷ Folders ↗</button>
+<div id="graph-menu" role="menu" aria-label="Graph actions" hidden>
+ <div id="graph-menu-context"></div>
+ <button id="graph-inspect" role="menuitem" hidden>Inspect</button>
+ <button id="graph-conversations" role="menuitem" hidden>Codex conversations…</button>
+ <button id="graph-copy-path" role="menuitem" hidden>Copy node path</button>
+ <button id="graph-concentrate" role="menuitem" hidden>Concentrate</button>
+ <button id="graph-clear-concentration" role="menuitem" hidden>Clear concentration</button>
+ <button id="graph-hide-node" role="menuitem" hidden>Hide node</button>
+ <button id="graph-unhide-node" role="menuitem" hidden>Unhide node</button>
+ <button id="graph-show-hidden" role="menuitem" hidden>Show hidden nodes</button>
+ <button id="graph-conceal-hidden" role="menuitem" hidden>Hide hidden nodes</button>
+ <button id="graph-more" role="menuitem" hidden>Show more children</button>
+ <button id="fit" role="menuitem">Fit graph</button>
+ <button id="zoom-in" role="menuitem">Zoom in <span>+</span></button>
+ <button id="zoom-out" role="menuitem">Zoom out <span>−</span></button>
+ <div class="graph-menu-divider" role="separator"></div>
+ <button id="graph-reset" role="menuitem" title="Release dragged nodes and arrange the graph again">Reset layout</button>
+ <div class="graph-menu-divider" role="separator"></div>
+ <button id="terminal-launch" role="menuitem" disabled title="Select an analysis to open its conversation">Codex CLI</button>
+ <button id="rescan" role="menuitem" title="Refresh the folder inventory">Refresh</button>
+ <button id="new-note" role="menuitem">New note</button>
+ <span id="graph-zoom" hidden>100%</span>
+</div>
+<section id="terminal-panel" class="terminal-panel" role="dialog" aria-modal="false" aria-labelledby="terminal-title" hidden>
+ <header id="terminal-titlebar"><div class="terminal-window-title"><h2 id="terminal-title">›_ Codex CLI</h2><span id="terminal-context"></span><select id="terminal-scope" aria-label="Codex conversation scope"><option value="project">Project</option><option value="analysis">Selected node</option></select><span id="terminal-indicator" aria-hidden="true"></span></div><div class="terminal-window-controls"><button id="terminal-menu" aria-label="Terminal options" aria-expanded="false" title="Session options">⋯</button><button id="terminal-minimize" aria-label="Minimize terminal" title="Minimize">−</button><button id="terminal-expand" aria-label="Maximize terminal" title="Maximize" aria-pressed="false">□</button><button id="terminal-hide" aria-label="Hide terminal" title="Hide window · session keeps running">×</button></div></header>
+ <div class="terminal-toolbar" hidden><p id="terminal-state" role="status"></p><div class="terminal-actions"><button id="terminal-conversations">Conversations</button><button id="terminal-new-conversation">New conversation</button><button id="terminal-history">Previous chat</button><button id="terminal-open" class="primary">Open Codex CLI</button><button id="terminal-stop" hidden>Close session</button></div></div>
+ <div id="terminal-host"><div id="terminal-empty"><p>A real terminal session, kept with this analysis.</p><button id="terminal-connect" class="primary">Open Codex CLI</button></div></div>
+ <button id="terminal-resize" aria-label="Resize terminal" title="Drag to resize · arrow keys to adjust">◢</button>
+</section>
+<button id="terminal-dock" hidden title="Restore terminal">›_ Codex CLI <span>↗</span></button>
+
+<dialog id="files-dialog" aria-labelledby="files-title"><div class="dialog-heading"><h2 id="files-title">Files &amp; figures</h2><button data-close="files-dialog" aria-label="Close file browser">×</button></div>
+ <div class="files-location"><button id="files-up" aria-label="Parent folder">↑</button><div id="files-breadcrumbs"></div></div>
+ <div class="files-toolbar"><div class="files-tabs"><button data-file-filter="all" aria-pressed="true">All files</button><button data-file-filter="text" aria-pressed="false">Code &amp; text</button><button data-file-filter="figures" aria-pressed="false">Figures</button></div><input id="files-search" aria-label="Search files in this folder" placeholder="Find a file…"><label><input id="files-recursive" type="checkbox">Include subfolders</label></div>
+ <div id="files-list"></div><div class="files-pages"><button id="files-prev">← Previous</button><button id="files-next">Next →</button></div>
+</dialog>
+<dialog id="legacy-dialog"><div class="dialog-heading"><h2>Previous conversation</h2><button data-close="legacy-dialog" aria-label="Close previous conversation">×</button></div><div id="legacy-transcript"></div></dialog><dialog id="coverage-dialog"><div class="dialog-heading"><h2>Inventory coverage</h2><button data-close="coverage-dialog" aria-label="Close coverage">×</button></div><div id="coverage-detail"></div></dialog>
+<dialog id="preview-dialog"><div class="dialog-heading"><h2 id="preview-title"></h2><button data-close="preview-dialog" aria-label="Close preview">×</button></div><div id="preview-context"></div><div class="preview-actions"><button id="preview-previous">← Previous figure</button><a id="preview-download">Download original</a><button id="preview-next">Next figure →</button></div><div id="preview-content"></div></dialog>
+<dialog id="note-dialog"><form id="note-form"><div class="dialog-heading"><h2>Save a connected note</h2><button type="button" data-close="note-dialog" aria-label="Close note">×</button></div><p id="note-parent"></p><label>Title<input id="note-title" required maxlength="160"></label><label>Note<textarea id="note-body" required rows="7" maxlength="40000"></textarea></label><button class="primary" id="save-note">Save note</button></form></dialog>
+<dialog id="about-dialog"><div class="dialog-heading"><h2>About this workspace</h2><button data-close="about-dialog" aria-label="Close about">×</button></div><p>The inventory includes every discovered file and directory under the selected project, including hidden files, backups and empty folders. Symlink targets are not traversed. </p><p>Choose Graph for the interactive map or Folders for the directory browser. Only one navigation view appears at a time. Open folders to descend. Files lists exact files; Figures shows only the selected analysis folder’s direct exports and groups PNG/PDF exports with the same filename stem. Formats remain individually reachable. Search and filters operate within the current folder; use Search whole folder to broaden the scope.</p><p>Analysis records use a general JSON structure: description, storage folders, code, data, figures, documents and relationships. Descriptions are imported from report contents and can be edited. Hover over a compact graph node to read its description. The graph follows direct parent/child folders. Navigation folders hide the inspector. Analysis folders expose their direct files and labelled code candidates. The file inventory remains a separate complete fallback.</p><p>Codex CLI uses your installed account configuration and sends the selected item's context, nearby report excerpts, and conversation to its configured provider. Portable sessions can write their private terminal folder and project metadata, with on-request approval for additional access. Local guide is a deterministic catalogue lookup. No analyses are executed.</p><button id="coverage-open" class="secondary">Inventory details</button><p>Notes and conversations remain in this app's workspace.sqlite3. Original research files stay in place. </p></dialog>
+<section id="research-window" role="dialog" aria-modal="false" aria-label="Conversations" hidden>
+ <button id="research-close" aria-label="Close conversations">×</button>
+ <div class="research-toolbar"><button id="research-new">New conversation</button><button id="research-ask">Ask manager</button><button id="research-import" title="Import previous sessions">Import sessions</button><button id="research-refresh">Refresh</button></div>
+ <label class="research-search"><input id="research-search" placeholder="Find conversations…" aria-label="Search conversations"></label>
+ <div id="conversation-undo" hidden><span>Conversation deleted.</span><button id="conversation-restore">Undo</button></div>
+ <div class="conversation-list-label">Conversations</div>
+ <p id="research-health" role="status" hidden></p><div id="research-content"></div>
+ <div id="research-drag" aria-label="Move conversation window"><span aria-hidden="true" class="research-grip"></span></div>
+ <button id="research-resize" aria-label="Resize conversation window" title="Drag to resize · arrow keys to adjust"></button>
+</section>
+<div id="conversation-title-tooltip" role="tooltip" hidden></div>
+<div id="conversation-menu" role="menu" aria-label="Conversation actions" hidden>
+ <button id="conversation-continue" role="menuitem">Continue in new session</button>
+ <button id="conversation-recover" role="menuitem">Recovery &amp; history</button>
+ <button id="conversation-delete" role="menuitem">Delete conversation</button>
+</div>
+<dialog id="research-new-dialog"><form id="research-new-form"><div class="dialog-heading"><h2>New node conversation</h2><button type="button" data-close="research-new-dialog" aria-label="Cancel new conversation">×</button></div><label>Attach to<select id="research-new-node"><option value="project">Whole project</option><option value="selected">Selected node</option></select></label><p id="research-new-context"></p><label>Objective<textarea id="research-objective" rows="4" maxlength="12000" required placeholder="What should this conversation accomplish?"></textarea></label><p class="source-note">The manager is called automatically. Inspection can begin while review is pending; placement is reviewed before creating or running an analysis.</p><button class="primary" type="submit">Create conversation</button></form></dialog>
+<dialog id="research-question-dialog"><form id="research-question-form"><div class="dialog-heading"><h2>Ask the main manager</h2><button type="button" data-close="research-question-dialog">×</button></div><label>Question<textarea id="research-question" rows="4" maxlength="12000" required placeholder="Has a similar analysis already been done?"></textarea></label><p class="source-note">The answer uses registered project records and appears here.</p><button class="primary" type="submit">Ask manager</button><div id="research-answer" class="research-card" role="status" hidden></div></form></dialog>
+<dialog id="research-override-dialog"><form id="research-override-form"><div class="dialog-heading"><h2>Record your override</h2><button type="button" data-close="research-override-dialog">×</button></div><p>This records your decision to proceed despite a pending or unresolved manager review. Existing sandbox permissions still apply.</p><label>Reason<textarea id="research-override-reason" rows="3" required></textarea></label><button type="submit" class="primary">Record override</button></form></dialog>
+<div id="node-tooltip" role="tooltip" hidden></div><dialog id="record-dialog"><form id="record-form"><div class="dialog-heading"><h2>Edit analysis record</h2><button type="button" data-close="record-dialog" aria-label="Close record editor">×</button></div><label>Title<input id="record-title" required maxlength="200"></label><label>Description<textarea id="record-description" required rows="10" maxlength="20000"></textarea></label><p>Saved to the workspace record. Original research files remain unchanged.</p><button class="primary" id="save-record">Save record</button></form></dialog><div id="toast" role="status" hidden></div><script src="/force-graph.js"></script><script src="/vendor/xterm.js"></script><script src="/vendor/addon-fit.js"></script><script src="/terminal.js"></script><script src="/app.js"></script><script src="/research-ui.js"></script></body></html>
