@@ -10,6 +10,16 @@ Research work often ends up spread across folders: a script here, a figure there
 
 [See the walkthrough](docs/SHOWCASE.md) · [Try the fictional demo](#run-locally) · [Read the analysis workflow](RESEARCH_WORKFLOW.md)
 
+## 52-second demo
+
+See graph navigation, code and figure inspection, and conversation management in a captioned walkthrough.
+
+https://github.com/user-attachments/assets/28b19f4a-e377-4f89-8883-f8fd2569035a
+
+[Download the video](docs/research-map-demo.mp4) · [Read the transcript](docs/DEMO_VIDEO.md)
+
+Recorded with fictional Orchard Study data and clearly labelled sample conversation records. The conversation-creation form is shown without starting a real Codex session.
+
 ## What is it useful for?
 
 | When you want to… | Research Map helps you… |

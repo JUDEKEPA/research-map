@@ -1,0 +1,86 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.000
+Research Map · a quick tour
+A fictional project: navigate research folders without moving the files.
+
+2
+00:00:03.000 --> 00:00:05.000
+1 · Explore the graph
+Click a folder node to expand its children.
+
+3
+00:00:05.000 --> 00:00:08.000
+1 · Explore the graph
+Baseline, faster-growth and comparison are peer analyses.
+
+4
+00:00:08.000 --> 00:00:10.000
+1 · Arrange your workspace
+Drag a node to reposition it; use the graph controls to zoom or fit.
+
+5
+00:00:10.000 --> 00:00:13.000
+2 · Inspect an analysis
+Right-click an analysis node and choose Inspect.
+
+6
+00:00:13.000 --> 00:00:16.000
+2 · Inspect an analysis
+One record links the description, code, data, figures and metadata.
+
+7
+00:00:16.000 --> 00:00:20.000
+3 · Read code without leaving the graph
+Open Python, JSON, Markdown and other text files in a read-only preview.
+
+8
+00:00:20.000 --> 00:00:22.000
+4 · Find figures by folder
+Inspect → Figures lists image files in their subfolder structure.
+
+9
+00:00:22.000 --> 00:00:26.000
+4 · Open the saved result
+Inspect the figure directly. For multiple figures, use Previous/Next or ← →.
+
+10
+00:00:26.000 --> 00:00:30.000
+5 · Manage conversations by project
+Manager highlights nodes with registered conversations. These are sample records.
+
+11
+00:00:30.000 --> 00:00:34.000
+5 · Give each conversation a home
+Choose Selected node or Whole project, then give the conversation an objective.
+
+12
+00:00:34.000 --> 00:00:37.000
+6 · Find a conversation
+Filter conversations by their objective. Titles stay attached to their nodes.
+
+13
+00:00:37.000 --> 00:00:40.000
+6 · Conversation actions
+Right-click for a new linked session, recovery history, or recoverable deletion.
+
+14
+00:00:40.000 --> 00:00:44.000
+7 · Recover the context
+Read saved checkpoints and history. This is a labelled sample checkpoint.
+
+15
+00:00:44.000 --> 00:00:47.000
+8 · Tidy up without losing the record
+Delete hides a registered conversation. Undo restores it.
+
+16
+00:00:47.000 --> 00:00:49.000
+8 · Undo restores the conversation
+The sample conversation is visible again, attached to the same analysis.
+
+17
+00:00:49.000 --> 00:00:52.000
+Your research, connected
+Try Orchard Study on GitHub. AI conversations use your own Codex CLI account.

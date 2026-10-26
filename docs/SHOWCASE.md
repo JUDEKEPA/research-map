@@ -4,6 +4,8 @@ Research Map is for researchers who want to understand their project through its
 
 The example below uses only the bundled **Orchard Study**. Its measurements and results are synthetic.
 
+[Watch the 52-second video](../README.md#52-second-demo) · [Video transcript](DEMO_VIDEO.md)
+
 ## 1. Open a project and see its structure
 
 Start the app and choose **Explore fictional demo**. Expand **analyses → growth-model** to see three peer folders: **baseline**, **faster-growth** and **comparison**.
